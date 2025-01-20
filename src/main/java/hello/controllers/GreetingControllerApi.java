@@ -9,6 +9,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import hello.assemblers.GreetingModelAssembler;
 import hello.dao.GreetingService;
@@ -73,5 +75,14 @@ public class GreetingControllerApi {
 		EntityModel<Greeting> entity = greetingAssembler.toModel(newGreeting);
 
 		return ResponseEntity.created(entity.getRequiredLink(IanaLinkRelations.SELF).toUri()).build();
+	}
+	
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteGreeting(@PathVariable("id") long id) {
+
+		greetingService.deleteById(id);
+
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 }

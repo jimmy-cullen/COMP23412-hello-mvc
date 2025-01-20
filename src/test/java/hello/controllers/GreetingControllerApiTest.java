@@ -175,7 +175,10 @@ public class GreetingControllerApiTest {
 	
 	@Test
 	public void deleteGreeting() throws Exception {
-		mvc.perform(delete("/api/greetings/1"))
+		
+		int id = 1;
+		
+		mvc.perform(delete("/api/greetings/{id}", id).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNoContent());
 		
 	}
