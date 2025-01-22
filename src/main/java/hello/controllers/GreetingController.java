@@ -88,9 +88,10 @@ public class GreetingController {
 	
 	
 	@DeleteMapping("/{id}")
-	public String deleteGreeting(@PathVariable("id") long id, Model model) {
+	public String deleteGreeting(@PathVariable("id") long id, Model model, RedirectAttributes redirectAttrs) {
 
 		greetingService.deleteById(id);
+		redirectAttrs.addFlashAttribute("ok_message", "Greeting deleted.");
 
 		return "redirect:/greetings";
 	}
