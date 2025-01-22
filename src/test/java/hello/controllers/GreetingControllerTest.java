@@ -208,7 +208,7 @@ public class GreetingControllerTest {
 		.andExpect(redirectedUrl("/greetings"))
 		.andExpect(view().name("redirect:/greetings"))
 		.andExpect(handler().methodName("deleteGreeting"))
-		.andExpect(flash().attributeCount(0));
+		.andExpect(flash().attributeExists("ok_message"));
 
 	}
 }
