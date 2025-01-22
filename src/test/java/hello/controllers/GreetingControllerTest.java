@@ -11,6 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -18,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.handler;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -192,5 +194,21 @@ public class GreetingControllerTest {
 				.andExpect(handler().methodName("createGreeting")).andExpect(flash().attributeCount(0));
 
 		verify(greetingService, never()).save(any(Greeting.class));
+	}
+	
+	
+	
+	@Test
+	public void deleteGreeting() throws Exception {
+
+		int id = 1;
+
+		mvc.perform(delete("/greetings/{id}", id).with(csrf()).accept(MediaType.TEXT_HTML))
+		.andExpect(status().is3xxRedirection())
+		.andExpect(redirectedUrl("/greetings"))
+		.andExpect(view().name("redirect:/greetings"))
+		.andExpect(handler().methodName("deleteGreeting"))
+		.andExpect(flash().attributeCount(0));
+
 	}
 }

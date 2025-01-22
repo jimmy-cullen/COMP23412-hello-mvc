@@ -9,7 +9,6 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -85,4 +84,5 @@ public class GreetingControllerApi {
 
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
+
 }
